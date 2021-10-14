@@ -1,0 +1,29 @@
+{
+  "name": "@earth-cli/core",
+  "version": "1.0.0",
+  "description": "earth-cli core",
+  "author": "wangxuke <1564442827@qq.com>",
+  "homepage": "https://github.com/wangxv/study/tree/main/packages/core#readme",
+  "license": "ISC",
+  "main": "lib/core.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangxv/study.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/wangxv/study/issues"
+  }
+}
