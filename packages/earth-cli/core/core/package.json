@@ -6,6 +6,9 @@
   "homepage": "https://github.com/wangxv/study/tree/main/packages/core#readme",
   "license": "ISC",
   "main": "lib/core.js",
+  "bin": {
+    "earth-cli": "bin/index.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -25,5 +28,11 @@
   },
   "bugs": {
     "url": "https://github.com/wangxv/study/issues"
+  },
+  "dependencies": {
+    "@earth-cli/utils": "file:../../utils/utils",
+    "@earth-cli/log": "file:../../utils/log",
+    "import-local": "^3.0.3",
+    "npmlog": "^5.0.1"
   }
 }
