@@ -1,0 +1,19 @@
+{
+  "name": "get-npm-info",
+  "version": "1.0.0",
+  "description": "get npm info",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "semver": "^7.3.5",
+    "url-join": "^4.0.1"
+  }
+}
