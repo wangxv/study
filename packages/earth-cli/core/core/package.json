@@ -30,10 +30,11 @@
     "url": "https://github.com/wangxv/study/issues"
   },
   "dependencies": {
+    "@earth-cli/get-npm-info": "file:../../utils/get-npm-info",
     "@earth-cli/log": "file:../../utils/log",
     "@earth-cli/utils": "file:../../utils/utils",
+    "commander": "^8.2.0",
     "dotenv": "^10.0.0",
-    "@earth-cli/get-npm-info": "file:../../utils/get-npm-info",
     "import-local": "^3.0.3",
     "minimist": "^1.2.5",
     "npmlog": "^5.0.1",

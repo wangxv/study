@@ -6,7 +6,6 @@ const urlJoin = require('url-join');
 
 // 获取npm信息
 function getNpmInfo(npmName, registry) {
-  console.log(npmName);
   if (!npmName) return null;
   const registryUrl = registry || getDefaultRegistry();
   const npmInfoUrl = urlJoin(registryUrl, npmName);

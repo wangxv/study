@@ -4,6 +4,7 @@ module.exports = core;
 
 const path = require('path');
 const semver = require('semver');
+const commander = require('commander');
 const colors = require('colors/safe');
 const pathExists = require('path-exists').sync;
 const userHome = require('user-home');
@@ -12,6 +13,7 @@ const pkg = require('../package.json');
 const constant = require('./const');
 
 let args;
+const program = new commander.Command();
 
 async function core() {
 	try {
@@ -19,11 +21,41 @@ async function core() {
 		checkNodeVersion();
 		checkRoot();
 		checkUserHome();
-		checkInputArgs();
+		// checkInputArgs();
 		checkEnv();
-		checkGlobalUpdate();
+		// checkGlobalUpdate();
+		registerCommand();
 	} catch(err) {
 		log.error(err.message);
+	}
+}
+
+// 注册命令
+function registerCommand() {
+	program
+		.name(Object.keys(pkg.bin)[0])
+		.usage('<command> [options]')
+		.version(pkg.version)
+		.option('-d, --debug', '是否开启调试模式', false);
+
+	program.on('option:debug', function() {
+		if (program.debug) {
+			process.env.LOG_LELVEL = 'verbose';
+		} else {
+			process.env.LOG_LELVEL = 'info';
+		}
+		log.level = process.env.LOG_LELVEL;
+		log.verbose('test');
+	});
+	program.on('command:*', function(obj) {
+		console.log(colors.red('未知命令：' + obj[0]));
+		const availableCommands = program.commands.map(cmd => cmd.name());
+		console.log(colors.red('可用命令：' + availableCommands.join(',')))
+	});
+
+	program.parse(process.argv);
+	if (process.args && program.args.length < 1) {
+		program.outputHelp();
 	}
 }
 
@@ -88,12 +120,11 @@ function checkArgs() {
 }
 // 检查package的版本
 function checkPkgVersion() {
-	log.info('cli', pkg.version);
+	// log.info('cli', pkg.version);
 }
 // 检查node版本
 function checkNodeVersion() {
 	// 第一步，获取当前Node版本号
-	console.log(process.version);
 	const currentVersion = process.version;
 	// 第二步， 比对最低版本
 	const lowestVersion = constant.LOWST_NODE_VERSION;
@@ -106,7 +137,6 @@ function checkNodeVersion() {
 function checkRoot() {
 	const rootCheck = require('root-check');
 	rootCheck();
-	console.log(process.getuid());
 }
 // 检查主目录
 function checkUserHome() {
