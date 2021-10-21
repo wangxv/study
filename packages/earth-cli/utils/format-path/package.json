@@ -1,9 +1,9 @@
 {
-  "name": "@earth-cli/utils",
+  "name": "@earth-cli/format-path",
   "version": "1.0.0",
-  "description": "earth-cli utils",
+  "description": "earth-cli format path",
   "author": "wangxuke <1564442827@qq.com>",
-  "homepage": "https://github.com/wangxv/study/tree/main/packages/utils#readme",
+  "homepage": "https://github.com/wangxv/study/tree/main/core/format-path#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {

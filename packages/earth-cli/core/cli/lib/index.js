@@ -11,19 +11,14 @@ const userHome = require('user-home');
 const log = require('@earth-cli/log');
 const pkg = require('../package.json');
 const constant = require('./const');
+const init = require('@earth-cli/init');
+const exec = require('@earth-cli/exec');
 
-let args;
 const program = new commander.Command();
 
 async function core() {
 	try {
-		checkPkgVersion();
-		checkNodeVersion();
-		checkRoot();
-		checkUserHome();
-		// checkInputArgs();
-		checkEnv();
-		// checkGlobalUpdate();
+		await prepare();
 		registerCommand();
 	} catch(err) {
 		log.error(err.message);
@@ -32,21 +27,36 @@ async function core() {
 
 // 注册命令
 function registerCommand() {
+
 	program
 		.name(Object.keys(pkg.bin)[0])
 		.usage('<command> [options]')
 		.version(pkg.version)
-		.option('-d, --debug', '是否开启调试模式', false);
-
+		.option('-d, --debug', '是否开启调试模式', false)
+		.option('-tp, --targetPath <targetPath>', '是否指定本地调试路径', '');
+	
+	program
+		.command('init [projectName]')
+		.option('-f, --force', '是否强制初始化项目')
+		.action(exec);
+	// 开启debug模式
 	program.on('option:debug', function() {
-		if (program.debug) {
+		if (this.opts().debug) {
 			process.env.LOG_LELVEL = 'verbose';
 		} else {
 			process.env.LOG_LELVEL = 'info';
 		}
 		log.level = process.env.LOG_LELVEL;
-		log.verbose('test');
 	});
+
+	// 指定targetPath
+	program.on('option:targetPath', function() {
+		if (this.opts && this.opts()) {
+			process.env.CLI_TARGET_PATH = this.opts().targetPath;
+		}
+	});
+
+	// 对未知命令监听
 	program.on('command:*', function(obj) {
 		console.log(colors.red('未知命令：' + obj[0]));
 		const availableCommands = program.commands.map(cmd => cmd.name());
@@ -57,6 +67,15 @@ function registerCommand() {
 	if (process.args && program.args.length < 1) {
 		program.outputHelp();
 	}
+}
+
+async function prepare() {
+	checkPkgVersion();
+	checkNodeVersion();
+	checkRoot();
+	checkUserHome();
+	checkEnv();
+	// await checkGlobalUpdate();
 }
 
 // 检查更新
@@ -86,7 +105,6 @@ function checkEnv() {
 		});
 	}
 	createDefaultCliConfig();
-  log.verbose('环境变量', process.env.CLI_HOME_PATH);
 }
 
 // 创建默认cli配置
@@ -103,21 +121,6 @@ function createDefaultCliConfig() {
 	process.env.CLI_HOME_PATH = cliConfig.cliHome;
 }
 
-// 检查入参
-function checkInputArgs() {
-	const minimist = require('minimist');
-	args = minimist(process.argv.slice(2));
-	checkArgs();
-}
-
-function checkArgs() {
-	if (args.debug) {
-		process.env.LOG_LELVEL = 'verbose';
-	} else {
-		process.env.LOG_LELVEL = 'info';
-	}
-	log.level = process.env.LOG_LELVEL;
-}
 // 检查package的版本
 function checkPkgVersion() {
 	// log.info('cli', pkg.version);

@@ -1,9 +1,9 @@
 {
-  "name": "@earth-cli/utils",
+  "name": "@earth-cli/init",
   "version": "1.0.0",
-  "description": "earth-cli utils",
+  "description": "earth-cli init",
   "author": "wangxuke <1564442827@qq.com>",
-  "homepage": "https://github.com/wangxv/study/tree/main/packages/utils#readme",
+  "homepage": "https://github.com/wangxv/study/tree/main/core/init#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {

@@ -15,7 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^8.2.0",
+    "npminstall": "^4.10.0",
     "path-exists": "^5.0.0",
+    "user-home": "^3.0.0",
     "yargs": "^17.2.1"
   },
   "devDependencies": {

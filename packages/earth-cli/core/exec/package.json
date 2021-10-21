@@ -1,9 +1,9 @@
 {
-  "name": "@earth-cli/utils",
+  "name": "@earth-cli/exec",
   "version": "1.0.0",
-  "description": "earth-cli utils",
+  "description": "earth-cli exec",
   "author": "wangxuke <1564442827@qq.com>",
-  "homepage": "https://github.com/wangxv/study/tree/main/packages/utils#readme",
+  "homepage": "https://github.com/wangxv/study/tree/main/core/exec#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -25,5 +25,9 @@
   },
   "bugs": {
     "url": "https://github.com/wangxv/study/issues"
+  },
+  "dependencies": {
+    "@earth-cli/package": "file:../../models/package",
+    "@earth-cli/log": "file:../../utils/log"
   }
 }
