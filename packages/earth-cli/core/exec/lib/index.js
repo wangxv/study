@@ -1,15 +1,19 @@
 'use strict';
 
+const path = require('path');
 const Package = require('@earth-cli/package');
 const log = require('@earth-cli/log');
 
 const SETTINGS = {
   init: '@earth-cli/init'
 };
+const CACHE_DIR = 'depandencies';
 
-function exec() {
-  const targetPath = process.env.CLI_TARGET_PATH;
+async function exec() {
   const homePath = process.env.CLI_HOME_PATH;
+  let targetPath = process.env.CLI_TARGET_PATH;
+  let storeDir = '';
+  let pkg;
 
   log.verbose('targetPath:', targetPath);
   log.verbose('homePath:', homePath);
@@ -21,15 +25,34 @@ function exec() {
 
   if (!targetPath) {
     // 生成缓存路径
-    targetPath = '';
+    targetPath = path.resolve(homePath, CACHE_DIR);
+    storeDir = path.resolve(targetPath, 'node_modules');
+    log.verbose('targetPath', targetPath);
+    log.verbose('storeDir', storeDir);
+    pkg = new Package({
+      targetPath,
+      packageName,
+      packageVersion,
+      storeDir
+    });
+    if (await pkg.exists()) {
+      // 更新
+      await pkg.update();
+    } else {
+      // 安装
+      await pkg.install();
+    }
+  } else {
+    pkg = new Package({
+      targetPath,
+      packageName,
+      packageVersion
+    });
   }
 
-  const pkg = new Package({
-    targetPath,
-    packageName,
-    packageVersion
-  });
-
-  console.log(pkg.getRootFilePath());
+  const rootFile = pkg.getRootFilePath();
+  if (rootFile) {
+    require(rootFile).apply(null, arguments);
+  }
 }
 module.exports = exec;

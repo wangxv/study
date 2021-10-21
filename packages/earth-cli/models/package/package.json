@@ -27,8 +27,12 @@
     "url": "https://github.com/wangxv/study/issues"
   },
   "dependencies": {
-    "@earth-cli/utils": "file:../../utils/utils",
     "@earth-cli/format-path": "file:../../utils/format-path",
+    "@earth-cli/get-npm-info": "file:../../utils/get-npm-info",
+    "@earth-cli/utils": "file:../../utils/utils",
+    "fs-extra": "^9.0.1",
+    "npminstall": "^4.10.0",
+    "path-exists": "^4.0.0",
     "pkg-dir": "^4.2.0"
   }
 }
