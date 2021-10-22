@@ -1,9 +1,9 @@
 {
-  "name": "@earth-cli/init",
+  "name": "@earth-cli/command",
   "version": "1.0.0",
-  "description": "earth-cli init",
+  "description": "earth-cli command",
   "author": "wangxuke <1564442827@qq.com>",
-  "homepage": "https://github.com/wangxv/study/tree/main/core/init#readme",
+  "homepage": "https://github.com/wangxv/study/tree/main/core/Command#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -26,7 +26,8 @@
   "bugs": {
     "url": "https://github.com/wangxv/study/issues"
   },
-  "dependencies": {
-    "@earth-cli/command": "file:../../models/command"
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "semver": "^7.3.5"
   }
 }

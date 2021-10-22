@@ -1,7 +1,12 @@
 'use strict';
+const Command = require('@earth-cli/command');
 
-function init(name, options, command) {
-  // console.log(name, options, command);
+class InitCommand extends Command {
+}
+
+function init(argv) {
+  return new InitCommand(argv);
 }
 
 module.exports = init;
+module.exports.InitCommand = InitCommand;

@@ -102,18 +102,26 @@ class Package {
   }
   // 获取根文件路径
   getRootFilePath() {
-    // 1. 获取package.json的所在目录 -- pkg-dir 
-    const dir = pkgDir(this.targetPath);
-    if (dir) {
-      // 2.读取package.json --require()
-      const pkgFile =require(path.resolve(dir, 'package.json'));
-      // 3. 寻找main/lib -path
-      if (pkgFile && pkgFile.main) {
-        // 4. 路径的兼容（macOS/windows）
-        return formatPath(path.resolve(dir, pkgFile.main));
+    function _getRootFile(targetPath) {
+      // 1. 获取package.json的所在目录 -- pkg-dir 
+      const dir = pkgDir(targetPath);
+      if (dir) {
+        // 2.读取package.json --require()
+        const pkgFile =require(path.resolve(dir, 'package.json'));
+        // 3. 寻找main/lib -path
+        if (pkgFile && pkgFile.main) {
+          // 4. 路径的兼容（macOS/windows）
+          return formatPath(path.resolve(dir, pkgFile.main));
+        }
       }
+      return null;
     }
-    return null;
+
+    if (this.storeDir) {
+      return _getRootFile(this.cacheFilePath);
+    } else {
+      return _getRootFile(this.targetPath);
+    }
   }
 }
 

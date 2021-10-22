@@ -10,5 +10,20 @@
     "lib"
   ],
   "author": "wangxv",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "npminstall": "^4.10.0",
+    "path-exists": "^4.0.0",
+    "pkg-dir": "^4.2.0",
+    "commander": "^8.2.0",
+    "dotenv": "^10.0.0",
+    "import-local": "^3.0.3",
+    "npmlog": "^5.0.1",
+    "root-check": "^1.0.0",
+    "user-home": "^3.0.0",
+    "axios": "^0.23.0",
+    "semver": "^7.3.5",
+    "url-join": "^4.0.1"
+  }
 }

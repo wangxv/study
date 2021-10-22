@@ -11,7 +11,6 @@ const userHome = require('user-home');
 const log = require('@earth-cli/log');
 const pkg = require('../package.json');
 const constant = require('./const');
-const init = require('@earth-cli/init');
 const exec = require('@earth-cli/exec');
 
 const program = new commander.Command();
@@ -74,7 +73,6 @@ function registerCommand() {
 
 async function prepare() {
 	checkPkgVersion();
-	checkNodeVersion();
 	checkRoot();
 	checkUserHome();
 	checkEnv();
@@ -128,17 +126,7 @@ function createDefaultCliConfig() {
 function checkPkgVersion() {
 	// log.info('cli', pkg.version);
 }
-// 检查node版本
-function checkNodeVersion() {
-	// 第一步，获取当前Node版本号
-	const currentVersion = process.version;
-	// 第二步， 比对最低版本
-	const lowestVersion = constant.LOWST_NODE_VERSION;
 
-	if (!semver.gte(currentVersion, lowestVersion)) {
-		throw new Error(colors.red(`earth-cli 需要安装 v${lowestVersion} 以上版本的 Node.js`));
-	}
-}
 // 检查root权限
 function checkRoot() {
 	const rootCheck = require('root-check');
