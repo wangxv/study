@@ -1,10 +1,23 @@
 const cp = require('child_process');
 const path = require('path')
-// cp.exec('ls -al|grep node_modules', function(err, stdout, stderr) {
-//   console.log('err: ', err);
-//   console.log('stdout: ', stdout);
-//   console.log('stderr: ', stderr);
-// });
+
+
+const child = cp.exec('ls -al|grep node_modules', function(err, stdout, stderr) {
+  console.log('err: ', err);
+  console.log('stdout: ', stdout);
+  console.log('stderr: ', stderr);
+});
+
+child.stdout.on('close', () => {
+  console.log('stdout close');
+});
+child.stderr.on('close', () => {
+  console.log('stderr close');
+});
+
+child.on('exit', (exitCode) => {
+  console.log('exit', exitCode)
+});
 
 // cp.execFile(path.resolve(__dirname, 'test.shell'), function(err, stdout, stderr) {
 //   console.log('err: ', err);
@@ -53,11 +66,11 @@ const path = require('path')
 
 // console.log('main pid', process.pid);
 
-const ret = cp.execSync('ls -al|grep node_modules');
-console.log(ret.toString());
+// const ret = cp.execSync('ls -al|grep node_modules');
+// console.log(ret.toString());
 
-const ret2 = cp.execFileSync('ls', ['-al']);
-console.log(ret2.toString());
+// const ret2 = cp.execFileSync('ls', ['-al']);
+// console.log(ret2.toString());
 
-const ret3 = cp.spawnSync('ls', ['-al']);
-console.log(ret3.toString());
+// const ret3 = cp.spawnSync('ls', ['-al']);
+// console.log(ret3.toString());

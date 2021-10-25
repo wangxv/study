@@ -27,6 +27,7 @@
     "url": "https://github.com/wangxv/study/issues"
   },
   "dependencies": {
-    "@earth-cli/command": "file:../../models/command"
+    "@earth-cli/command": "file:../../models/command",
+    "@earth-cli/log": "file:../../utils/log"
   }
 }

@@ -27,6 +27,7 @@
     "url": "https://github.com/wangxv/study/issues"
   },
   "devDependencies": {
+    "@earth-cli/log": "file:../../utils/log",
     "colors": "^1.4.0",
     "semver": "^7.3.5"
   }
