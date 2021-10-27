@@ -1,9 +1,9 @@
 {
-  "name": "@earth-cli/init",
+  "name": "@earth-cli/request",
   "version": "1.0.0",
-  "description": "earth-cli init",
+  "description": "> TODO: description",
   "author": "wangxuke <1564442827@qq.com>",
-  "homepage": "https://github.com/wangxv/study/tree/main/core/init#readme",
+  "homepage": "https://github.com/wangxv/study/tree/main/core/request#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -14,7 +14,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -27,11 +27,6 @@
     "url": "https://github.com/wangxv/study/issues"
   },
   "dependencies": {
-    "@earth-cli/command": "file:../../models/command",
-    "@earth-cli/log": "file:../../utils/log",
-    "@earth-cli/request": "file:../../utils/request",
-    "fs-extra": "^10.0.0",
-    "inquirer": "^8.2.0",
-    "semver": "^7.3.5"
+    "axios": "^0.24.0"
   }
 }
