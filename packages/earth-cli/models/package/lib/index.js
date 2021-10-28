@@ -96,7 +96,7 @@ class Package {
     const latestFilePath = this.getSpecificCacheFilePath(latestPackageVersion);
     // 3、如果不存在，则直接安装最新版本
     if (!pathExists(latestFilePath)) {
-      await installSpecific(latestPackageVersion);
+      await this.installSpecific(latestPackageVersion);
       this.packageVersion = latestPackageVersion;
     }
   }

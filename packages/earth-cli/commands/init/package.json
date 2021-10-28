@@ -29,9 +29,12 @@
   "dependencies": {
     "@earth-cli/command": "file:../../models/command",
     "@earth-cli/log": "file:../../utils/log",
+    "@earth-cli/package": "file:../../models/package",
     "@earth-cli/request": "file:../../utils/request",
+    "@earth-cli/utils": "file:../../utils/utils",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.2.0",
-    "semver": "^7.3.5"
+    "semver": "^7.3.5",
+    "user-home": "^3.0.0"
   }
 }

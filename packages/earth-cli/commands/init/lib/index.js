@@ -1,10 +1,14 @@
 'use strict';
 const fs = require('fs');
+const path = require('path');
+const userHome = require('user-home')
 const inquirer = require('inquirer');
 const semver = require('semver');
 const fse = require('fs-extra');
 const log = require('@earth-cli/log');
+const { spinnerStart, sleep } = require('@earth-cli/utils');
 const Command = require('@earth-cli/command');
+const Package = require('@earth-cli/package');
 
 const getProjectTemplate = require('./getProjectTemplate');
 
@@ -20,14 +24,13 @@ class InitCommand extends Command {
   }
   async exec() {
     try {
-      console.log('exec');
       // 1、准备阶段
       const projectInfo = await this.prepare();
       if (projectInfo) {
         // 2、下载模板
         log.verbose('projectInfo', projectInfo);
         this.projectInfo = projectInfo;
-        this.downloadTemplate();
+        await this.downloadTemplate();
         // 3、安装模板  
       }
     } catch (e) {
@@ -42,15 +45,49 @@ class InitCommand extends Command {
    *  1.3 将项目模板信息存在在mongodb数据库中
    *  1.4 通过egg.js获取mongodb中的数据并且通过API返回
    */
-  downloadTemplate() {
-    console.log(this.projectInfo, this.template);
+  async downloadTemplate() {
+    const { prjectTemplate } = this.projectInfo;
+    const templateInfo = this.template.find(item => item.npmName === prjectTemplate);
+    const targetPath = path.resolve(userHome, '.earth-cli', 'template');
+    const storeDir = path.resolve(userHome, '.earth-cli', 'template', 'node_modules');
+    const { npmName, version } = templateInfo;
+
+    const templateNpm = new Package({
+      targetPath,
+      storeDir,
+      packageName: npmName,
+      packageVersion: version
+    });
+
+    if (await templateNpm.exists()) {
+      const spinner = spinnerStart('正在下载模板...');
+      await sleep(); // 等待1s 为了看清加载loading过程
+      try {
+        await templateNpm.install();
+        log.success('下载模板成功');
+      } catch(e) {
+        throw e;
+      } finally {
+        spinner.stop(true);
+      }
+    } else {
+      const spinner = spinnerStart('正在更新模板...');
+      await sleep();
+      try {
+        await templateNpm.update();
+        log.success('更新模板成功');
+      } catch(e) {
+        throw e;
+      } finally {
+        spinner.stop(true);
+      }
+    }
   }
 
   async prepare() {
     // 0判断项目模板是否存在
     // 1、判断当前目录是否为空
     const template = await getProjectTemplate();
-    console.log(template);
     if (!template || template.length === 0) {
       throw new Error('项目模板不存在!');
     }
@@ -87,7 +124,7 @@ class InitCommand extends Command {
         }
       }
     }
-    this.getProjectInfo();
+    return this.getProjectInfo();
   }
   async getProjectInfo() {
     let projectInfo = {};
@@ -121,7 +158,7 @@ class InitCommand extends Command {
           validate: function(v) {
             const done = this.async();
             setTimeout(function() {
-              if (!(/^[a-zA-Z]+([-][a-za-Z][a-zA-Z0-9]*|[_][a-za-Z][a-zA-Z0-9]*|[a-zA-Z0-9])*$/.test(v))) {
+              if (!(/^[a-zA-Z]+([-][a-zA-Z][a-zA-Z0-9]*|[_][a-zA-Z][a-zA-Z0-9]*|[a-zA-Z0-9])*$/.test(v))) {
                 // 1.输入的首字符必须为英文字符
                 // 2.尾字符必须为英文或者数字，不能为字符
                 // 3.字符仅允许"-_"
@@ -140,6 +177,28 @@ class InitCommand extends Command {
           name: 'prjectVersion',
           message: '请输入项目版本号',
           default: '',
+          validate: function(v) {
+            const done = this.async();
+            setTimeout(function() {
+              if (!semver.valid(v)) {
+                done('请输入合法的版本号');
+                return;
+              }
+              done(null, true);
+            }, 0);
+          },
+          filter: function(v) {
+            if (!!semver.valid(v)) {
+              return semver.valid(v);
+            }
+            return v;
+          }
+        },
+        {
+          type: 'list',
+          name: 'prjectTemplate',
+          message: '请选择项目模板',
+          choices: this.createTemplateChoice(),
           validate: function(v) {
             const done = this.async();
             setTimeout(function() {
@@ -177,6 +236,14 @@ class InitCommand extends Command {
       !file.startsWith('.') && ['node_modules'].indexOf(file) < 0
     ));
     return !fileList || fileList.length <= 0;
+  }
+
+  // 选择模板数据格式化
+  createTemplateChoice() {
+    return this.template.map((item) => ({
+      value: item.npmName,
+      name: item.name
+    }));
   }
 }
 

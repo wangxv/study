@@ -1,6 +1,6 @@
 {
   "name": "earth-cli-template-vue2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "vue2 template",
   "main": "index.js",
   "scripts": {
