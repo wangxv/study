@@ -2,4 +2,4 @@
 
 // require('../dist/core.js');
 // require('./process/index.js');
-require('./inquirer/rxjs');
+require('./ejs/index.js');
