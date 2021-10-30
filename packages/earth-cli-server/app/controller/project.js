@@ -7,7 +7,7 @@ class ProjectController extends Controller {
   // 获取项目、组件代码模板
   async getTemplate() {
     const { ctx } = this;
-    const data = await mongo().query('project')
+    const data = await mongo().query('template')
     console.log(data);
     ctx.body = data;
   }
