@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@earth-cli/package": "file:../../models/package",
-    "@earth-cli/log": "file:../../utils/log"
+    "@earth-cli/log": "file:../../utils/log",
+    "@earth-cli/utils": "file:../../utils/utils"
   }
 }

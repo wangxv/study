@@ -2,4 +2,4 @@
 
 // require('../dist/core.js');
 // require('./process/index.js');
-require('./ejs/index.js');
+require('./glob.js');

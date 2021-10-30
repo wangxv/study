@@ -93,7 +93,6 @@ async function checkGlobalUpdate() {
 		log.warn('更新提示', colors.yellow(`请手动更新 ${npmName}，当前版本: ${currentVersion}，最新版本: ${lastVersion}
 更新命令: npm install -g ${npmName}`));
 	}
-
 }
 
 // 检查环境变量
@@ -124,7 +123,7 @@ function createDefaultCliConfig() {
 
 // 检查package的版本
 function checkPkgVersion() {
-	// log.info('cli', pkg.version);
+	log.info('cli', pkg.version);
 }
 
 // 检查root权限

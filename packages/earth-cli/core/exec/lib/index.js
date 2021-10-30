@@ -1,9 +1,10 @@
 'use strict';
 
 const path = require('path');
-const cp = require('child_process');
+// const cp = require('child_process');
 const Package = require('@earth-cli/package');
 const log = require('@earth-cli/log');
+const { exec: spawn } = require('@earth-cli/utils');
 
 const SETTINGS = {
   init: '@earth-cli/init'
@@ -36,6 +37,7 @@ async function exec() {
       packageVersion,
       storeDir
     });
+
     if (await pkg.exists()) {
       // 更新
       await pkg.update();
@@ -86,15 +88,6 @@ async function exec() {
       log.error(e.message);
     }    
   }
-}
-
-function spawn(command, args, options) {
-  const win32 = process.platform === 'win32';
-
-  const cmd = win32 ? 'cmd' : command;
-  const cmdArgs = win32 ? ['/c'].concat(command, args): args;
-
-  return cp.spawn(cmd, cmdArgs, options || {});
 }
 
 module.exports = exec;
