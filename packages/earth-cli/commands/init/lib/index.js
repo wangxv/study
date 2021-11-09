@@ -82,7 +82,7 @@ class InitCommand extends Command {
       if (cmdArray.length > 0) {
         const cmd = this.checkCommand(cmdArray[0]);
         if (!cmd) {
-          throw new Error('命令不存在！命令：', command);
+          throw new Error('命令不存在！命令：' + command);
         }
         const args = cmdArray.slice(1);
         ret = await execAsync(cmd, args, {
