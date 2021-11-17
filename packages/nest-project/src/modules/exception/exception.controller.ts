@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Patch, Query, Delete, Body, Param, Headers, UseFilters, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Query,
+  Delete,
+  Body,
+  Param,
+  Headers,
+  UseFilters,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ExceptionService } from './exception.service';
 import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 import { HttpExceptionsFilter } from '../../common/filters/http-exception.filter';
@@ -12,7 +24,7 @@ export class ExceptionController {
 
   // 查询
   @Get()
-  fetch(@Query(){ id }, @Headers('token') token): string {
+  fetch(@Query() { id }, @Headers('token') token): string {
     return this.exceptionService.fetch(id);
   }
 
@@ -27,13 +39,13 @@ export class ExceptionController {
   @Patch(':id')
   @ApiParam({ name: 'id' })
   @ApiBody({ description: '请输入message' })
-  update(@Param('id', new ParseIntPipe()){ id }, @Body() { message }): string {
+  update(@Param('id', new ParseIntPipe()) { id }, @Body() { message }): string {
     return this.exceptionService.update(id, message);
   }
 
   // 查询
   @Delete()
-  remove(@Query(){ id }): string {
+  remove(@Query() { id }): string {
     return this.exceptionService.remove(id);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ExceptionService {
+export class RoleGuardService {
   fetch(id): string {
     return `hello world! ${id}`;
   }

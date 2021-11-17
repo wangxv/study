@@ -17,14 +17,14 @@ export class HttpExceptionsFilter implements ExceptionFilter {
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
-    const {error, message} = response;
+    const { error, message } = response;
 
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
       error,
-      message
+      message,
     });
   }
 }

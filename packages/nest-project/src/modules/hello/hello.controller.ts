@@ -1,7 +1,24 @@
-import { Controller, Get, Post, Patch, Query, Delete, Body, Param, Headers } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Query,
+  Delete,
+  Body,
+  Param,
+  Headers,
+} from '@nestjs/common';
 import { HelloService } from './hello.service';
 import { Hello, UserRole } from './classes/hello';
-import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @ApiTags('hello')
@@ -11,14 +28,14 @@ export class HelloController {
 
   // 查询
   @Get()
-  @ApiQuery({ name: 'name', required: false})
-  @ApiQuery({ name: 'role', enum: UserRole})
+  @ApiQuery({ name: 'name', required: false })
+  @ApiQuery({ name: 'role', enum: UserRole })
   @ApiResponse({
     status: 200,
     description: 'get xxxx',
-    type: Hello
+    type: Hello,
   })
-  fetch(@Query(){ id }, @Headers('token') token): string {
+  fetch(@Query() { id }, @Headers('token') token): string {
     return this.helloService.fetch(id);
   }
 
@@ -33,13 +50,13 @@ export class HelloController {
   @Patch(':id')
   @ApiParam({ name: 'id' })
   @ApiBody({ description: '请输入message' })
-  update(@Param(){ id }, @Body() { message }): string {
+  update(@Param() { id }, @Body() { message }): string {
     return this.helloService.update(id, message);
   }
 
   // 查询
   @Delete()
-  remove(@Query(){ id }): string {
+  remove(@Query() { id }): string {
     return this.helloService.remove(id);
   }
 }
