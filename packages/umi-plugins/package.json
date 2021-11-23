@@ -1,0 +1,20 @@
+{
+  "name": "umi-plugins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mkdirp": "^1.0.4",
+    "mustache": "^4.2.0",
+    "tapable": "^2.2.1"
+  }
+}
