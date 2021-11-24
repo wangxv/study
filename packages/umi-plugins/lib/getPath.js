@@ -1,5 +1,5 @@
 const { existsSync, statSync } = require('fs');
-const {join} = require('path');
+const { join } = require('path');
 
 function isDirectoryAndExist(path) {
   // 判断某个路径的文件是否存在，并且是一个目录【文件夹】
@@ -10,7 +10,7 @@ function isDirectoryAndExist(path) {
 const cwd = process.cwd();
 
 // src目录的绝对路径
-const absSrcPath = cwd;
+let absSrcPath = cwd;
 // 如果src目录存在，那么当前目录下的src目录才是src根目录
 if (isDirectoryAndExist(join(absSrcPath, 'src'))) {
   absSrcPath = join(absSrcPath, 'src');
