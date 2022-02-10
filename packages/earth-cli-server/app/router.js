@@ -8,4 +8,5 @@ module.exports = app => {
   // router.get('/', controller.home.index);
   router.get('/project/template', controller.project.getTemplate);
   router.get('/template/getTemplateType', controller.template.getTemplateType);
+  router.post('/template/addTemplate', controller.template.addTemplate);
 };
